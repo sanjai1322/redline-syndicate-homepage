@@ -1,14 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Clock } from "lucide-react";
 import garageImage from "@/assets/garage-interior.jpg";
+import { useParallax } from "@/hooks/use-parallax";
 
 const VisitGarage = () => {
+  const { ref, offset } = useParallax(0.25);
+
   return (
-    <section id="contact" className="relative py-36 md:py-48 overflow-hidden">
-      {/* Background */}
+    <section ref={ref} id="contact" className="relative py-36 md:py-48 overflow-hidden">
+      {/* Background with parallax */}
       <div
-        className="absolute inset-0 bg-cover bg-center scale-105"
-        style={{ backgroundImage: `url(${garageImage})` }}
+        className="absolute inset-[-20%] bg-cover bg-center will-change-transform"
+        style={{
+          backgroundImage: `url(${garageImage})`,
+          transform: `translateY(${offset}px)`,
+        }}
       />
       <div className="absolute inset-0 bg-background/80" />
       <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50" />

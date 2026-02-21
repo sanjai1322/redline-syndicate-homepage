@@ -1,14 +1,20 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-porsche.jpg";
 import { ChevronDown } from "lucide-react";
+import { useParallax } from "@/hooks/use-parallax";
 
 const HeroSection = () => {
+  const { ref, offset } = useParallax(0.4);
+
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Background image */}
+    <section ref={ref} className="relative h-screen w-full overflow-hidden">
+      {/* Background image with parallax */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="absolute inset-[-15%] bg-cover bg-center bg-no-repeat will-change-transform"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          transform: `translateY(${offset}px) scale(1.05)`,
+        }}
       />
       {/* Layered overlays for cinematic depth */}
       <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
