@@ -4,35 +4,37 @@ import garageImage from "@/assets/garage-interior.jpg";
 
 const VisitGarage = () => {
   return (
-    <section id="contact" className="relative py-32 md:py-40 overflow-hidden">
+    <section id="contact" className="relative py-36 md:py-48 overflow-hidden">
       {/* Background */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center scale-105"
         style={{ backgroundImage: `url(${garageImage})` }}
       />
-      <div className="absolute inset-0 bg-background/85" />
+      <div className="absolute inset-0 bg-background/80" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50" />
 
-      <div className="relative z-10 container mx-auto px-6 text-center">
-        <h2 className="font-display text-5xl md:text-6xl text-foreground mb-12">
+      <div className="relative z-10 container mx-auto px-6 lg:px-10 text-center">
+        <div className="w-10 h-[2px] bg-primary mx-auto mb-8" />
+        <h2 className="font-display text-5xl md:text-6xl lg:text-7xl text-foreground mb-16">
           VISIT THE <span className="text-primary">GARAGE</span>
         </h2>
 
-        <div className="flex flex-col md:flex-row items-center justify-center gap-10 mb-12 text-muted-foreground">
-          <div className="flex items-center gap-3">
-            <MapPin className="w-5 h-5 text-primary" />
-            <span className="text-sm tracking-wide">1200 Industrial Blvd, Stuttgart, TX 75001</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Phone className="w-5 h-5 text-primary" />
-            <span className="text-sm tracking-wide">(512) 555-0199</span>
-          </div>
-          <div className="flex items-center gap-3">
-            <Clock className="w-5 h-5 text-primary" />
-            <span className="text-sm tracking-wide">Mon – Sat: 9 AM – 7 PM</span>
-          </div>
+        <div className="flex flex-col md:flex-row items-center justify-center gap-12 mb-16">
+          {[
+            { icon: MapPin, text: "1200 Industrial Blvd, Stuttgart, TX 75001" },
+            { icon: Phone, text: "(512) 555-0199" },
+            { icon: Clock, text: "Mon – Sat: 9 AM – 7 PM" },
+          ].map(({ icon: Icon, text }) => (
+            <div key={text} className="flex items-center gap-4">
+              <div className="w-10 h-10 border border-primary/30 flex items-center justify-center">
+                <Icon className="w-4 h-4 text-primary" />
+              </div>
+              <span className="text-muted-foreground text-sm tracking-wide">{text}</span>
+            </div>
+          ))}
         </div>
 
-        <Button size="lg" className="uppercase tracking-widest text-sm font-semibold px-10 py-6">
+        <Button size="lg" className="uppercase tracking-[0.3em] text-xs font-semibold px-14 py-7 rounded-none shadow-[0_0_40px_-5px_hsl(var(--primary)/0.4)]">
           Schedule an Appointment
         </Button>
       </div>
