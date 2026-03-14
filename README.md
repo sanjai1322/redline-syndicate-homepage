@@ -1,63 +1,50 @@
-# Redline Syndicate Homepage
+# Redline Syndicate
 
-## Project info
+Premium performance vehicles and bespoke tuning solutions for the modern enthusiast.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Overview
 
-## How can I edit this code?
+Redline Syndicate is a specialized automotive platform dedicated to sourcing, building, and showcasing world-class performance vehicles. From track-ready builds to high-end luxury icons, we engineer purity into every detail.
 
-There are several ways of editing your application.
+## Features
 
-This is a custom performance automotive project.
+- **Inventory Management**: Browse a curated selection of premium performance vehicles.
+- **Bespoke Builds**: Detailed showcases of our custom engineering projects.
+- **Performance Tuning**: Technical specifications and tuning solutions for elite platforms.
+- **Scroll Sequence Experience**: An immersive, high-performance visual journey through automotive excellence.
 
+## Tech Stack
 
-**Use your preferred IDE**
+- **Framework**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/) + [GSAP/Lenis](https://lenis.darkroom.engineering/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Components**: [shadcn/ui](https://ui.shadcn.com/)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Getting Started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Prerequisites
 
-Follow these steps:
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- npm or bun
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sanjai1322/redline-syndicate-homepage.git
+   ```
 
-# Step 3: Install the necessary dependencies.
-npm i
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-**Edit a file directly in GitHub**
+## License
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## Deployment
-
-You can deploy this project using any static hosting service like Vercel or Netlify.
-
+© 2026 Redline Syndicate. All rights reserved.
