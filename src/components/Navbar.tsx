@@ -1,81 +1,122 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = ["Inventory", "Builds", "Performance", "About", "Contact"];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      const scrollPos = window.scrollY;
+      setScrolled(scrollPos > 50);
+
+      // Hide navbar during hero sequence (approx 300vh)
+      // Re-show it once we approach the first content section
+      const heroThreshold = window.innerHeight * 2;
+      setIsVisible(scrollPos < 50 || scrollPos > heroThreshold);
+    };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-background/95 backdrop-blur-md shadow-[0_1px_0_0_hsl(var(--primary)/0.15)]"
-          : "bg-gradient-to-b from-background/60 to-transparent"
-      }`}
+    <motion.nav
+      initial={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${scrolled
+        ? "h-16 bg-background/60 backdrop-blur-xl border-b border-white/5 shadow-2xl"
+        : "h-24 bg-transparent"
+        }`}
     >
-      <div className="container mx-auto flex items-center justify-between h-20 px-6 lg:px-10">
+      <div className="container mx-auto flex items-center justify-between h-full px-6 lg:px-12">
         {/* Logo */}
-        <a href="#" className="font-display text-2xl tracking-[0.15em] text-foreground">
-          REDLINE <span className="text-primary">SYNDICATE</span>
-        </a>
+        <motion.a
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          href="#"
+          className="font-display text-xl sm:text-2xl tracking-[0.2em] text-white flex items-center gap-2 group"
+        >
+          <span className="relative">
+            REDLINE
+            <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+          </span>
+          <span className="text-primary font-black italic metallic-text">SYNDICATE</span>
+        </motion.a>
 
         {/* Desktop Links */}
-        <div className="hidden lg:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <a
+        <div className="hidden lg:flex items-center gap-12">
+          {navLinks.map((link, i) => (
+            <motion.a
               key={link}
               href={`#${link.toLowerCase()}`}
-              className="relative text-[11px] font-medium uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground transition-colors duration-300 after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="group relative text-[10px] font-bold uppercase tracking-[0.3em] text-white/50 hover:text-white transition-all duration-300"
             >
-              {link}
-            </a>
+              <span className="relative z-10">{link}</span>
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none" />
+            </motion.a>
           ))}
         </div>
 
         {/* CTA */}
-        <div className="hidden lg:block">
-          <Button className="uppercase tracking-[0.25em] text-[10px] font-semibold px-7 h-9 rounded-none">
-            Explore Cars
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="hidden lg:block"
+        >
+          <Button className="uppercase tracking-[0.3em] text-[9px] font-black px-8 h-10 rounded-none bg-primary hover:bg-primary/90 transition-all duration-500 hover:shadow-[0_0_25px_rgba(234,0,30,0.5)]">
+            Explore
           </Button>
-        </div>
+        </motion.div>
 
         {/* Mobile toggle */}
-        <button
-          className="lg:hidden text-foreground"
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="lg:hidden text-white p-2"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </motion.button>
       </div>
 
       {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="lg:hidden bg-background/98 backdrop-blur-md border-t border-border/50 px-6 pb-8 pt-4">
-          {navLinks.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              className="block py-3 text-xs uppercase tracking-[0.25em] text-muted-foreground hover:text-foreground transition-colors border-b border-border/30 last:border-0"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link}
-            </a>
-          ))}
-          <Button className="w-full mt-6 uppercase tracking-[0.25em] text-[10px] font-semibold rounded-none">
-            Explore Cars
-          </Button>
-        </div>
-      )}
-    </nav>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="lg:hidden fixed inset-0 top-0 bg-background/95 backdrop-blur-2xl flex flex-col justify-center items-center gap-8 z-[-1]"
+          >
+            {navLinks.map((link, i) => (
+              <motion.a
+                key={link}
+                href={`#${link.toLowerCase()}`}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: i * 0.05 }}
+                className="text-2xl font-display tracking-[0.3em] text-white/70 hover:text-primary transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link}
+              </motion.a>
+            ))}
+            <Button className="mt-4 uppercase tracking-[0.3em] text-xs font-black px-12 py-6 h-auto rounded-none">
+              Explore
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

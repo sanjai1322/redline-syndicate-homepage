@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Bebas Neue"', 'sans-serif'],
-        sans: ['"Inter"', 'sans-serif'],
+        display: ['"Cinzel"', 'serif'],
+        sans: ['"Manrope"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -2,62 +2,83 @@ import { Button } from "@/components/ui/button";
 import signatureBuild from "@/assets/signature-build.jpg";
 import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const stats = [
-  { value: "700+", label: "Horsepower" },
-  { value: "3.2s", label: "0–100 km/h" },
-  { value: "100%", label: "Bespoke" },
+  { value: "700+", label: "HP OUTPUT" },
+  { value: "3.2s", label: "0–100 KM/H" },
+  { value: "100%", label: "BESPOKE" },
 ];
 
 const SignatureBuilds = () => {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
   return (
-    <section id="builds" className="relative py-28 md:py-40 bg-background overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 1px, hsl(var(--foreground)) 1px, hsl(var(--foreground)) 2px)`
+    <section id="builds" ref={sectionRef} className="relative py-32 md:py-48 bg-background overflow-hidden">
+      {/* Background patterns */}
+      <div className="absolute inset-0 opacity-[0.02]" style={{
+        backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+        backgroundSize: '40px 40px'
       }} />
 
-      <div className="container mx-auto px-6 lg:px-10 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-center">
           <ScrollReveal>
-            <div>
-              <div className="w-10 h-[2px] bg-primary mb-8" />
-              <h2 className="font-display text-5xl md:text-6xl lg:text-8xl text-foreground leading-[0.9] mb-8">
+            <div className="relative">
+              <div className="w-16 h-[2px] bg-primary mb-10" />
+              <h2 className="font-display text-6xl md:text-8xl lg:text-9xl text-white leading-[0.8] mb-10 select-none">
                 SYNDICATE<br />
-                <span className="text-primary">SIGNATURE BUILD</span>
+                <span className="text-primary italic font-black text-glow">SIGNATURE</span>
               </h2>
-              <p className="text-muted-foreground text-base leading-relaxed mb-10 max-w-md">
+              <p className="text-white/40 text-sm md:text-base leading-relaxed mb-12 max-w-md uppercase tracking-[0.2em] font-light">
                 Our in-house performance division delivers bespoke builds with precision ECU tuning,
                 custom titanium exhaust systems, and race-spec aerodynamics.
-                Every build is a statement of uncompromising power.
               </p>
 
-              <div className="flex gap-10 mb-10">
+              <div className="grid grid-cols-3 gap-10 mb-16 border-t border-white/5 pt-12">
                 {stats.map((stat) => (
                   <div key={stat.label}>
-                    <p className="font-display text-4xl text-primary">{stat.value}</p>
-                    <p className="text-muted-foreground/60 text-[10px] uppercase tracking-[0.3em] mt-1">{stat.label}</p>
+                    <p className="font-display text-4xl text-primary mb-2 italic">{stat.value}</p>
+                    <p className="text-white/20 text-[8px] uppercase tracking-[0.4em] font-bold">{stat.label}</p>
                   </div>
                 ))}
               </div>
 
-              <Button size="lg" className="uppercase tracking-[0.3em] text-xs font-semibold px-12 py-7 rounded-none shadow-[0_0_30px_-5px_hsl(var(--primary)/0.4)] group">
-                Explore Builds
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              <Button size="lg" className="group relative overflow-hidden uppercase tracking-[0.4em] text-[10px] font-black px-12 py-8 rounded-none bg-primary hover:bg-primary/90 transition-all duration-500">
+                <span className="relative z-10">Explore Project X</span>
+                <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500" />
               </Button>
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={200}>
-            <div className="relative">
-              <div className="overflow-hidden">
-                <img
+          <ScrollReveal delay={300}>
+            <div className="relative group">
+              {/* Decorative Corners */}
+              <div className="absolute -top-4 -left-4 w-20 h-20 border-t-2 border-l-2 border-primary/40 group-hover:border-primary transition-colors duration-700" />
+              <div className="absolute -bottom-4 -right-4 w-20 h-20 border-b-2 border-r-2 border-primary/40 group-hover:border-primary transition-colors duration-700" />
+
+              <div className="relative overflow-hidden aspect-[4/5] bg-neutral-900 border border-white/5">
+                <motion.img
+                  style={{ y: imgY }}
                   src={signatureBuild}
-                  alt="Syndicate signature build in performance garage"
-                  className="w-full h-auto object-cover"
+                  alt="Syndicate signature build"
+                  className="w-full h-[120%] object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60" />
+
+                {/* Overlay Text */}
+                <div className="absolute bottom-10 left-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                  <span className="text-primary font-black text-[10px] tracking-[0.4em] block mb-2 uppercase">Project Noir</span>
+                  <span className="text-white font-display text-2xl tracking-wider uppercase">Stage 3 Conversion</span>
+                </div>
               </div>
-              <div className="absolute -bottom-3 -left-3 w-24 h-24 border-b-2 border-l-2 border-primary" />
-              <div className="absolute -top-3 -right-3 w-24 h-24 border-t-2 border-r-2 border-primary" />
             </div>
           </ScrollReveal>
         </div>

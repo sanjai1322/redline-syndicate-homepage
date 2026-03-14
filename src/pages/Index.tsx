@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
+import ScrollSequenceHero from "@/components/ScrollSequenceHero";
 import FeaturedInventory from "@/components/FeaturedInventory";
 import SignatureBuilds from "@/components/SignatureBuilds";
 import PerformanceServices from "@/components/PerformanceServices";
@@ -11,7 +11,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <main>
-        <HeroSection />
+        <ScrollSequenceHero />
         <FeaturedInventory />
         <SignatureBuilds />
         <PerformanceServices />
